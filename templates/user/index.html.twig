@@ -5,13 +5,13 @@
 {% block body %}
     <h1>User index</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Roles</th>
+                <th>Admin</th>
                 <th>Created_at</th>
                 <th>Updated_at</th>
                 <th>actions</th>
@@ -23,12 +23,14 @@
                 <td>{{ user.getId }}</td>
                 <td>{{ user.getUsername }}</td>
                 <td>{{ user.getEmail }}</td>
-                <td>{{ user.getAdmin }}</td>
+                {% if app.user.admin %}
+                    <td>{{ user.admin ? 'Yes' : 'No' }}</td>
+                {% endif %}
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}"><button class="btn btn-sm btn-success text-light btn-block">show</button></a>&nbsp
+                    <a href="{{ path('user_edit', {'id': user.id}) }}"><button class="btn btn-sm btn-warning text-dark btn-block">edit</button></a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}"><button class="btn btn-sm btn-primary text-light">Create new</button></a>
 {% endblock %}

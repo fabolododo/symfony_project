@@ -11,6 +11,8 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 /**
  * @Route("/user")
@@ -92,12 +94,26 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
+        if ($this->getUser()->getAdmin() == true || $user->getId() == $this->getUser()->getId()) {
+            if ($user->getId() == $this->getUser()->getId()) {
+                if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+                    $session = $this->get('session');
+                    $session = new Session();
+                    $session->invalidate(); 
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($user);
+                    $entityManager->flush();
+                }
+                return $this->redirectToRoute('app_register');
+            }
+            else if ($this->getUser()->getAdmin() == true) {
+                if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($user);
+                    $entityManager->flush();
+                }
+                return $this->redirectToRoute('user_index');
+            }
         }
-
-        return $this->redirectToRoute('user_index');
     }
 }

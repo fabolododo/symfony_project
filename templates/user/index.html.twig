@@ -23,7 +23,7 @@
                 <td>{{ user.getId }}</td>
                 <td>{{ user.getUsername }}</td>
                 <td>{{ user.getEmail }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.getAdmin }}</td>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

@@ -37,9 +37,9 @@
         </tbody>
     </table>
     {% if app.user.admin %}
-    <a href="{{ path('user_index') }}">back to list</a>
+    <div><a href="{{ path('user_index') }}">back to list</a></div>
     {% endif %}
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+    <div><a href="{{ path('user_edit', {'id': user.id}) }}"><button class="btn btn-sm btn-warning text-dark">edit</button></a></div>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

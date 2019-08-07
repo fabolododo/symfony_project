@@ -51,7 +51,7 @@ class User implements UserInterface
     private $updated_at;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $admin;
 
@@ -59,7 +59,7 @@ class User implements UserInterface
     {
         $roles[] ='ROLE_USER';
         $this->setRoles($roles);
-        $this->setAdmin(0);
+        $this->setAdmin(false);
         $this->setCreatedAt(new \DateTime());
         if($this->getUpdatedAt() == null){
             $this->setUpdatedAt(new \DateTime());
@@ -185,12 +185,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAdmin(): ?int
+    public function getAdmin(): ?bool
     {
         return $this->admin;
     }
 
-    public function setAdmin(int $admin): self
+    public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
 

@@ -22,9 +22,13 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        if ($this->getUser()->getAdmin())
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
+        else {
+            return $this->redirectToRoute('hello');
+        }
     }
 
     /**
@@ -32,28 +36,34 @@ class UserController extends AbstractController
      */
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
-        $user->setPassword(
-        $passwordEncoder->encodePassword(
-            $user,
-            $form->get('plainPassword')->getData()
-        ));
+        if ($this->getUser()->getAdmin()){
+            $user = new User();
+            $form = $this->createForm(RegistrationFormType::class, $user);
+            $form->handleRequest($request);
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                ));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-            return $this->redirectToRoute('user_index');
+                    return $this->redirectToRoute('user_index');
+                }
+
+                return $this->render('user/new.html.twig', [
+                    'user' => $user,
+                    'form' => $form->createView(),
+                    'title' => 'New User'
+                    ]);
+            }
+            else{
+                return $this->redirectToRoute('hello');
+
         }
-
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-            'title' => 'New User'
-        ]);
     }
 
     /**
@@ -80,6 +90,7 @@ class UserController extends AbstractController
                     $user,
                     $form->get('plainPassword')->getData()
                 ));
+            $user->updateModifiedDatetime();
 
             $this->getDoctrine()->getManager()->flush();
 

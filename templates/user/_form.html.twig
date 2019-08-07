@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h1 class="text-center">Edit User</h1>
+                {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword) }}
+                <button class="btn btn-dark text-warning btn-block">Edit</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

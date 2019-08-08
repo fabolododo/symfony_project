@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\RegistrationFormType;
+// use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+// use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,18 +43,18 @@ class UserController extends AbstractController
             $user = new User();
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                ));
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    ));
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-
-                    return $this->redirectToRoute('user_index');
+                return $this->redirectToRoute('user_index');
                 }
 
                 return $this->render('user/new.html.twig', [

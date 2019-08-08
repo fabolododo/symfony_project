@@ -43,19 +43,18 @@ class UserController extends AbstractController
             $user = new User();
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
-            
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $form->get('plainPassword')->getData()
-                    ));
+                ));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('user_index');
-                }
+            }
 
                 return $this->render('user/new.html.twig', [
                     'user' => $user,

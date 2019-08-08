@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <table class="table">
+    <table class="table table-striped">
         <tbody>
             {# <tr>
                 <th>Id</th>
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th>Admin</th>
-                <td>{{ user.admin ? 'Yes' : 'No' }}</td>
+                <td>{{ user.admin ? '✅' : '❌' }}</td>
             </tr>
         </tbody>
     </table>

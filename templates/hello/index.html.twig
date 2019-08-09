@@ -12,21 +12,24 @@
     <h1 style="text-align: center;">Movies</h1>
 
 
-
+  {% for data in contents %}
     <div class="card mb-3" style="max-width: 650px; background-color:lightgrey;">
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="{{ poster_path }}" class="card-img" alt="poster_path">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h3 class="card-title text-primary">{{ title_movie }}</h3>
-        <p class="card-text" style="font-size:0.8em;">{{ release_date }}</p>
-        <p class="card-text">{{ content }}</p>
+      <div class="row no-gutters">
+        <div class="col-md-4">
+        {% if data.Poster != "N/A" %}
+          <img src="{{ data.Poster }}" class="card-img" alt="poster_path">
+        {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title text-primary">{{ data.Title }}</h3>
+            <p class="card-text" style="font-size:0.8em;">{{ data.Year }}</p>
+            <p class="card-text">{{ data.Type }}</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  {% endfor %}
     {# <ul>
         <li>Your controller at <code><a href="{{ 'C:/Users/fabri/Desktop/Rendu/symfony_project/src/Controller/HelloController.php'|file_link(0) }}">src/Controller/HelloController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/Users/fabri/Desktop/Rendu/symfony_project/templates/hello/index.html.twig'|file_link(0) }}">templates/hello/index.html.twig</a></code></li>

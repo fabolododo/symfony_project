@@ -16,8 +16,7 @@ class HelloController extends AbstractController
     public function index()
     {
         $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', 'https://api.themoviedb.org/3/movie/22?api_key=0688017ac447dbc1d2a3f034474c1fc8&language=en-US
-        ');
+        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&t=Star-Wars:-Episode-V');
         // var_dump($response->toArray());
         $statusCode = $response->getStatusCode();
         // $statusCode = 200
@@ -27,11 +26,13 @@ class HelloController extends AbstractController
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
-        $title = $content["original_title"];
-        $image = "https://image.tmdb.org/t/p/w500".$content["poster_path"];
-        $description = $content["overview"];
-        $release_date = $content["release_date"];
+        
+        
 
+        $title = $content['Title'];
+        $image = $content['Poster'];
+        $description = $content['Plot'];
+        $release_date = $content['Released'];
         
         return $this->render('hello/index.html.twig', [
                 'controller_name' => 'HelloController',

@@ -30,7 +30,7 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
         else {
-            return $this->redirectToRoute('hello');
+            return $this->redirectToRoute('list');
         }
     }
 

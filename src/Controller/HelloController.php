@@ -16,7 +16,7 @@ class HelloController extends AbstractController
     public function index()
     {
         $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&t=Star-Wars:-Episode-V');
+        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&s=snatch');
         // var_dump($response->toArray());
         $statusCode = $response->getStatusCode();
         // $statusCode = 200
@@ -29,17 +29,22 @@ class HelloController extends AbstractController
         
         
 
-        $title = $content['Title'];
-        $image = $content['Poster'];
-        $description = $content['Plot'];
-        $release_date = $content['Released'];
+        // $title = $content['Title'];
+        // $image = $content['Poster'];
+        // $description = $content['Plot'];
+        // $release_date = $content['Released'];
+        // $year = $content['Year'];
+        // $type = $content['Type'];
         
         return $this->render('hello/index.html.twig', [
-                'controller_name' => 'HelloController',
-                'poster_path' => $image,
-                'title_movie' => $title,
-                'content' => $description,
-                'release_date' => $release_date
+            'contents' => $content['Search']
+                // 'controller_name' => 'HelloController',
+                // 'poster_path' => $image,
+                // 'title_movie' => $title,
+                // 'content' => $description,
+                // 'release_date' => $release_date
+                // 'year' => $year,
+                // 'type' => $type
             ]);
         }
 }

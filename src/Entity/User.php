@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -55,6 +57,11 @@ class User implements UserInterface
      */
     private $admin;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MovieList", mappedBy="title")
+     */
+    private $favorites;
+
     public function __construct()
     {
         $roles[] ='ROLE_USER';
@@ -64,6 +71,7 @@ class User implements UserInterface
         if($this->getUpdatedAt() == null){
             $this->setUpdatedAt(new \DateTime());
         }
+        $this->favorites = new ArrayCollection();
     }
 
     /**
@@ -193,6 +201,37 @@ class User implements UserInterface
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MovieList[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(MovieList $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setTitle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(MovieList $favorite): self
+    {
+        if ($this->favorites->contains($favorite)) {
+            $this->favorites->removeElement($favorite);
+            // set the owning side to null (unless already changed)
+            if ($favorite->getTitle() === $this) {
+                $favorite->setTitle(null);
+            }
+        }
 
         return $this;
     }

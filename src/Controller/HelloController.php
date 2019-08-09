@@ -18,7 +18,7 @@ class HelloController extends AbstractController
     public function index()
     {
         $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&s=snatch');
+        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&t=snatch');
         // var_dump($response->toArray());
         $statusCode = $response->getStatusCode();
         // $statusCode = 200
@@ -41,7 +41,7 @@ class HelloController extends AbstractController
             'poster_path' => $image,
             'title_movie' => $title,
             'content' => $description,
-            'release_date' => $release_date
+            'release_date' => $release_date,
         ]);
     }
 

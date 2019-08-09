@@ -18,7 +18,7 @@ class HelloController extends AbstractController
     public function index()
     {
         $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&t=Star-Wars:-Episode-V');
+        $response = $httpClient->request('GET', 'http://www.omdbapi.com/?apikey=5a61096e&s=snatch');
         // var_dump($response->toArray());
         $statusCode = $response->getStatusCode();
         // $statusCode = 200

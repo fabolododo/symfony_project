@@ -51,7 +51,6 @@ class UserType extends AbstractType
                 'second_options' => ['label' => 'Confirm Password'],
                 'invalid_message' => 'Your password does not match the confirmation.'
             ])
-            ->add('admin')
 
             ->add('Confirmation_Box', CheckboxType::class, [
                 'mapped' => false,

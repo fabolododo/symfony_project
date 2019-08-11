@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\AdminType;
 // use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +31,7 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
         else {
-            return $this->redirectToRoute('hello');
+            return $this->redirectToRoute('list');
         }
     }
 
@@ -83,8 +84,14 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user,  UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        if ($this->getUser()->getAdmin()){
+            $form = $this->createForm(AdminType::class, $user);
+            $form->handleRequest($request);
+        }
+        else{
+            $form = $this->createForm(UserType::class, $user);
+            $form->handleRequest($request);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('plainPassword')->getData() != ""){

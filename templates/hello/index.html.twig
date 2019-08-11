@@ -11,28 +11,26 @@
 <div class="example-wrapper">
     <h1 style="text-align: center;">Movies</h1>
 
-
-  {% for data in contents %}
-    <div class="card mb-3" style="max-width: 650px; background-color:lightgrey;">
+  <div class="container">
+    <div class="card mb-3" style="max-width: auto; background-color:lightgrey;">
       <div class="row no-gutters">
         <div class="col-md-4">
-        {% if data.Poster != "N/A" %}
-          <img src="{{ data.Poster }}" class="card-img" alt="poster_path">
+        {% if poster_path != "N/A" %}
+          <img src="{{ poster_path }}" class="card-img" alt="poster_path">
         {% endif %}
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h3 class="card-title text-primary">{{ data.Title }}</h3>
-            <p class="card-text" style="font-size:0.8em;">{{ data.Year }}</p>
-            <p class="card-text">{{ data.Type }}</p>
+            <h3 class="card-title text-primary">{{ title_movie }}</h3>
+            <p class="card-text" style="font-size:0.8em;">{{ content }}</p>
+            <p class="card-text">{{ release_date }}</p>
           </div>
         </div>
       </div>
     </div>
-  {% endfor %}
-    {# <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/fabri/Desktop/Rendu/symfony_project/src/Controller/HelloController.php'|file_link(0) }}">src/Controller/HelloController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/fabri/Desktop/Rendu/symfony_project/templates/hello/index.html.twig'|file_link(0) }}">templates/hello/index.html.twig</a></code></li>
-    </ul> #}
+    </div>
+        <a href="{{ path('list') }}"><button type="button" class="btn btn-sm btn-dark text-warning">Back to the Movies List</button></a>&nbsp
+        <a href="#"><button type="button" class="btn btn-sm btn-primary text-light">Add to My Movies List</button></a>
+        <a href="#"><button type="button" class="btn btn-sm btn-success text-light">Share My Movies List</button></a>
 </div>
 {% endblock %}

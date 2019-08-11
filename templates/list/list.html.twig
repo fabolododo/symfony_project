@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movies List
+{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px / 1.5 sans-serif;
+        }
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+    <div class="container">
+        <div class="card-deck">
+            <div class="row">
+                {% for data in resultat %}
+                    <div class="col-md-4 card-group" style="margin-top:20px;">
+                        <div class="card text-warning bg-dark">
+                            <a href="{{path('hello_show',{ 'id': data.imdbID })}}"><img style="width=auto; height:auto;" src={{ data.Poster }} class="card-img-top" alt="Poster"></a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{path('hello_show',{ 'id': data.imdbID })}}">{{ data.Title }}</a></h5>
+                                <p class="card-text">Release Date
+                                    {{ data.Released }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

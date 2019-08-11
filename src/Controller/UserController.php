@@ -42,7 +42,7 @@ class UserController extends AbstractController
     {
         if ($this->getUser()->getAdmin()){
             $user = new User();
-            $form = $this->createForm(UserType::class, $user);
+            $form = $this->createForm(AdminType::class, $user);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setPassword(

@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+    db:
+        image: mysql:5.6
+        volumes:
+            - "$PWD/.data/db:/var/lib/mysql"
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        ports:
+            - "3307:3306"
+        restart: always
+    php:
+        image:  symfony_project/php7.4
+        ports:
+        - "92:80"
+        volumes:
+            - ./App:/var/www/html
+        environment:
+            WEB_DOCUMENT_ROOT: public
+        restart: always
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+        - "8083:80"
+        depends_on:
+        - db
+        restart: always
+

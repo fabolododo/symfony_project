@@ -31,9 +31,8 @@ function install
     
     docker-compose up -d
 
-
     docker-compose exec php composer install
-    
+    docker-compose exec php php bin/console d:d:c
     docker-compose exec php php bin/console d:s:u --force
     docker-compose exec php mkdir var/cache
     docker-compose exec php mkdir var/logs

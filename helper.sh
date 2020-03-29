@@ -88,6 +88,3 @@ fi
 if [[ $1 == "restart" ]]; then
     docker-compose down &&  docker-compose up -d
 fi
-
-
-

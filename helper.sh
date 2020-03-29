@@ -77,8 +77,10 @@ fi
 if [[ $1 == "start" ]]; then
     start
 fi
+
 if [[ $1 == "stop" ]]; then
     stop
+fi
 
 if [[ $1 == "args" ]]; then
     echo $1

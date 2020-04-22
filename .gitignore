@@ -1,3 +1,4 @@
 .env
 .data
 App/vendor
+testServerNode/node_modules

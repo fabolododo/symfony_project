@@ -29,4 +29,9 @@ services:
         depends_on:
         - db
         restart: always
+    node:
+        image:  symfony_project/node
+        ports:
+            -  "3000:3000"
+        restart:  always
 

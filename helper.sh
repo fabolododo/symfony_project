@@ -15,7 +15,7 @@ function start
     if [ ! -f .env ]; then
          install
     fi
-    [ ! -z $(docker images -q symfony_project/php7.4) ] || docker build -t symfony_project/php7.4 .docker/php7.4/
+    [ ! -z $(docker images -q symfony_project/php7.4) ] || docker build -t symfony_project/node .docker/node/ -t symfony_project/php7.4 .docker/php7.4/
     echo "Démarrage du projet..."
     docker-compose up
 }
@@ -27,7 +27,7 @@ function install
     cp .env.dist .env
 
 
-    [ ! -z $(docker images -q symfony_project/php7.4) ] || docker build -t symfony_project/php7.4 .docker/php7.4/
+    [ ! -z $(docker images -q symfony_project/php7.4) ] || docker build -t symfony_project/node .docker/node/ -t symfony_project/php7.4 .docker/php7.4/ 
     
     docker-compose up -d
 

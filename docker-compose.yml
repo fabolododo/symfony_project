@@ -29,9 +29,13 @@ services:
         depends_on:
         - db
         restart: always
-    node:
-        image:  symfony_project/node
+    servertest:
+        build: 
+            context: ./testServerNode
+            dockerfile: $PWD/.docker/node/Dockerfile
         ports:
-            -  "3000:3000"
-        restart:  always
-
+            - '9000:9000'
+        volumes: 
+            - ./testServerNode:/usr/src/app
+        restart: always
+            

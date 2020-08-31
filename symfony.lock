@@ -274,7 +274,7 @@
         "version": "v4.3.3"
     },
     "symfony/inflector": {
-        "version": "v4.3.3"
+        "version": "v5.0.11"
     },
     "symfony/intl": {
         "version": "v4.3.3"
@@ -289,7 +289,7 @@
         }
     },
     "symfony/mime": {
-        "version": "v4.3.3"
+        "version": "v5.0.11"
     },
     "symfony/monolog-bridge": {
         "version": "v4.3.3"
